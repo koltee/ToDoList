@@ -90,17 +90,30 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Add HSTS for HTTPS
+builder.Services.AddHsts(options =>
+{
+    options.Preload = true;
+    options.IncludeSubDomains = true;
+    options.MaxAge = TimeSpan.FromDays(365);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDoList API V1");
         c.RoutePrefix = string.Empty; // Set Swagger UI at apps root
     });
+}
+else
+{
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
