@@ -355,12 +355,16 @@ FodyWeavers.xsd
 *.sln.iml
 
 # SECURITY: Configuration files that might contain sensitive information
+# Configuration files with sensitive data
 appsettings.Production.json
 appsettings.Staging.json
 appsettings.Local.json
+appsettings.Development.json
 appsettings.*.json
+*.local.json
 !appsettings.json
-!appsettings.Development.json
+!appsettings.template.json
+!appsettings.Development.template.json
 
 # Environment variables files
 .env
